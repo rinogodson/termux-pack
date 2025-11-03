@@ -23,7 +23,7 @@ git clone https://github.com/rinogodson/termux-pack
 mv ~/termux-pack ~/pack
 
 rm -f ~/.zshrc
-cp ~/pack/.zshrc ~/
+cp ~/pack/zsh/.zshrc ~/
 
 mkdir -p ~/.config/tmux
 cp ~/pack/tmux.conf ~/.config/tmux/

@@ -52,7 +52,7 @@ grep -q 'exec zsh -l' ~/.bashrc 2>/dev/null || printf '\n[ -z "${ZSH_VERSION-}" 
 grep -q 'exec zsh -l' ~/.profile 2>/dev/null || printf '\n[ -z "${ZSH_VERSION-}" ] && command -v zsh >/dev/null && exec zsh -l\n' >> ~/.profile
 
 rm -rf ~/.termux
-cp ~/pack/.termux ~/
+cp -r ~/pack/.termux ~/
 
 read -p "Do you want to set a font? (y/n): " choice
 

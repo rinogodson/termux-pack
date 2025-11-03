@@ -1,34 +1,42 @@
-pkg update
-pkg install -y zsh
-pkg install -y git
-pkg i termux-services
+#!/data/data/com.termux/files/usr/bin/bash
+set -euo pipefail
 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+cd
 
-pkg install -y nodejs
-pkg install -y clang
-pkg install -y sqlite
-pkg install -y neovim
-pkg install -y tmux
-pkg install -y fastfetch
+export RUNZSH=no
+export CHSH=no
+
+pkg update -y
+pkg upgrade -y
+
+pkg install -y \
+  zsh git termux-services nodejs clang sqlite neovim tmux fastfetch lsd \
+  starship curl ncurses-utils termux-api
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
+
 npm i -g live-server
-pkg install -y lsd
 
 # ZSHRC PASTING
-
+rm -rf ~/pack
 git clone https://github.com/rinogodson/termux-pack
-mv ./termux-pack ./pack
+mv ~/termux-pack ~/pack
 
-rm ~/.zshrc
-cp pack/.zshrc ~/
+rm -f ~/.zshrc
+cp ~/pack/.zshrc ~/
 
-rm -rf ~/.config/nvim && cp -r ~/pack/nvim/ ./.config/
+mkdir -p ~/.config/tmux
+cp ~/pack/tmux.conf ~/.config/tmux/
+
+
+mkdir -p ~/.config
+rm -rf ~/.config/nvim
+cp -r ~/pack/nvim/ ~/.config/
+
+
 pkg install -y starship
-echo 'eval "$(starship init zsh)"'>> .zshrc
 pkg install -y curl ncurses-utils
 curl -fsSL https://raw.githubusercontent.com/arnavgr/termux-nf/main/install.sh | bash
-mkdir ~/.config/tmux
-cp ~/pack/tmux.conf ~/.config/tmux/
 
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
@@ -37,8 +45,13 @@ git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/p
 git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git \
   ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
 
-pkg install -y termux-api
 
-rm -rf ./pack
+echo 'eval "$(starship init zsh)"'>> .zshrc
+
+grep -q 'exec zsh -l' ~/.bashrc 2>/dev/null || printf '\n[ -z "${ZSH_VERSION-}" ] && command -v zsh >/dev/null && exec zsh -l\n' >> ~/.bashrc
+grep -q 'exec zsh -l' ~/.profile 2>/dev/null || printf '\n[ -z "${ZSH_VERSION-}" ] && command -v zsh >/dev/null && exec zsh -l\n' >> ~/.profile
+
+command -v zsh >/dev/null 2>&1 && exec zsh -l
+
 
 

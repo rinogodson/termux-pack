@@ -51,7 +51,18 @@ echo 'eval "$(starship init zsh)"'>> .zshrc
 grep -q 'exec zsh -l' ~/.bashrc 2>/dev/null || printf '\n[ -z "${ZSH_VERSION-}" ] && command -v zsh >/dev/null && exec zsh -l\n' >> ~/.bashrc
 grep -q 'exec zsh -l' ~/.profile 2>/dev/null || printf '\n[ -z "${ZSH_VERSION-}" ] && command -v zsh >/dev/null && exec zsh -l\n' >> ~/.profile
 
-command -v zsh >/dev/null 2>&1 && exec zsh -l
+rm -rf ~/.termux
+cp ~/pack/.termux ~/
 
+read -p "Do you want to set a font? (y/n): " choice
+
+if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
+    getnf
+else
+    echo "You can run 'getnf' to set the font anytime."
+    echo "Go to https://www.nerdfonts.com/font-downloads to get a preview."
+fi
+
+command -v zsh >/dev/null 2>&1 && exec zsh -l
 
 

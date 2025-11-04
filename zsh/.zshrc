@@ -132,6 +132,8 @@ export TERM="xterm-256color"
 
 alias most="history | awk '{print $2}' | sort | uniq -c | sort -nr | head -10"
 
+alias ip="echo '\n' && fastfetch --logo none --structure LocalIP | sed 's/.*: //'"
+
 # git
 alias gp="git push"
 alias gc="git commit"

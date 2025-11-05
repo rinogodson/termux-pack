@@ -11,7 +11,7 @@ pkg upgrade -y
 
 pkg install -y \
   zsh git termux-services nodejs clang sqlite neovim tmux fastfetch lsd \
-  starship curl ncurses-utils termux-api
+  starship curl ncurses-utils termux-api fzf
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
 

@@ -28,11 +28,12 @@ cp ~/pack/zsh/.zshrc ~/
 mkdir -p ~/.config/tmux
 cp ~/pack/tmux.conf ~/.config/tmux/
 
-
 mkdir -p ~/.config
 rm -rf ~/.config/nvim
 cp -r ~/pack/nvim/ ~/.config/
 
+rm -rf ~/.config/starship.toml
+cp ~/pack/starship.toml ~/.config/starship.toml
 
 pkg install -y starship
 pkg install -y curl ncurses-utils

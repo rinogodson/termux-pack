@@ -48,3 +48,5 @@ alias gc="git commit"
 alias ga="git add"
 clear
 echo '\e[5 q'
+
+eval "$(zoxide init zsh)"
